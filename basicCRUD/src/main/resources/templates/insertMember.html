@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body align="center">
+<form th:action="@{/member/insert}" method="post" th:object="${dto}">
+	<div>
+		<label for="name">이름 : </label>
+		<input type="text" name="name" th:field="*{name}" />
+<!--		입력에 오류가 있다면 오류메세지 출력-->
+		<span th:errors="*{name}"></span>
+	</div>
+	<div>
+		<label for="age">나이 : </label>
+		<input type="number" name="age" th:field="*{age}" />
+		<span th:errors="*{age}"></span>
+	</div>
+	<div>
+		<label for="address">주소 : </label>
+		<input type="text" name="address" th:field="*{address}" />
+		<span th:errors="*{address}"></span>
+	</div>
+	<input type="submit" value="등록" />
+</form>
+<a th:href="@{/member/view}" align="center">회원 정보 화면으로 돌아가기</a>
+</body>
+</html>

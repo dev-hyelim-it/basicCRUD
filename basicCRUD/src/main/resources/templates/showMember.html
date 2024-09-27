@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>회원정보</title>
+</head>
+<body align="center">
+<h1>회원정보보기</h1>
+<table border="1" align="center">
+  <thead>
+  <tr>
+    <td>ID</td>
+    <td>이름</td>
+    <td>나이</td>
+    <td>주소</td>
+    <td>변경</td>
+    <td>삭제</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="dto : ${lists}" th:object="${dto}">
+    <td th:text="*{id}">1</td>
+    <td th:text="*{name}">김아무개</td>
+    <td th:text="*{age}">22</td>
+    <td th:text="*{address}">모름</td>
+    <td>
+      <a th:href="@{/member/update(id=*{id})}">
+        <input type="button" value="수정" />
+      </a>
+      <!--<form>
+        <input type="submit" value="수정" />
+      </form>-->
+    </td>
+    <td>
+<!--      pathvariable로 사용할 때는 post 방식이 제일 이상적.-->
+<!--      <form th:action="@{member/delete/{id}(id=*{id})}" method="post">-->
+<!--        <form th:action="" method="get">-->
+<!--          <a th:href="@{member/delete(id=*{id})}">-->
+<!--          <input type="button" value="삭제"></a>-->
+      <form th:action="@{member/delete}" method="post">
+        <input type="hidden" name="id" th:value="*{id}">
+        <input type="submit" value="삭제" />
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<p></p>
+<form th:action="@{/member/insert}">
+  <input type="submit" value="신규회원입력" />
+</form>
+<br>
+<form action="/member/search" method="post">
+  <select name="type" id="">
+    <option selected value="">검색내용 선택</option>
+    <option value="name">이름</option>
+    <option value="address">주소</option>
+  </select>
+  <input type="text" name="keyword" placeholder="검색어 입력" />
+  <input type="submit" value="검색">
+</form>
+</body>
+</html>
